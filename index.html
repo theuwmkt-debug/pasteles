@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Pasteles de Feria — Masterclass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════
+   VARIABLES
+══════════════════════════════════════ */
+:root{
+  --bg:        #FDF7F0;
+  --bg2:       #F5EDE0;
+  --bg3:       #EDE0CC;
+  --choc:      #1E0902;
+  --choc2:     #3A1408;
+  --amber:     #C97220;
+  --amber2:    #E89030;
+  --gold:      #F0B848;
+  --red:       #C0391A;
+  --white:     #FFFFFF;
+  --txt:       #1E0902;
+  --txt2:      #5C3520;
+  --txt3:      #9A7058;
+  --border:    #DDD0BC;
+  --card-bg:   #FFFFFF;
+  --shadow:    rgba(30,9,2,0.10);
+  --shadow2:   rgba(30,9,2,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:400;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;}
+
+/* ══════════════════════════════════════
+   SCROLL PROGRESS BAR
+══════════════════════════════════════ */
+#progress-bar{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--amber),var(--gold));
+  z-index:9999;transition:width 0.1s;
+}
+
+/* ══════════════════════════════════════
+   STICKY MOBILE CTA
+══════════════════════════════════════ */
+.sticky-cta{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--choc);
+  padding:0.9rem 1.5rem;
+  z-index:999;
+  flex-direction:column;
+  align-items:center;
+  gap:0.25rem;
+  box-shadow:0 -4px 24px rgba(30,9,2,0.25);
+}
+.sticky-cta a{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--amber2),var(--amber));
+  color:#fff;font-weight:800;font-size:0.92rem;
+  text-align:center;text-decoration:none;
+  padding:0.9rem;border-radius:6px;
+  letter-spacing:0.05em;text-transform:uppercase;
+  animation:pulse 2s infinite;
+}
+.sticky-cta p{font-size:0.68rem;color:rgba(255,255,255,0.55);letter-spacing:0.05em;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,114,32,0.5);}50%{box-shadow:0 0 0 10px rgba(201,114,32,0);}}
+
+/* ══════════════════════════════════════
+   ANNOUNCEMENT BAR
+══════════════════════════════════════ */
+.ann-bar{
+  background:linear-gradient(90deg,var(--red),#a02c12,var(--red));
+  background-size:200%;animation:shimmer 4s linear infinite;
+  color:#fff;text-align:center;padding:0.65rem 1rem;
+  font-size:0.74rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.ann-bar b{color:var(--gold);}
+
+/* ══════════════════════════════════════
+   URGENCY TIMER BAR
+══════════════════════════════════════ */
+.timer-bar{
+  background:var(--choc2);
+  padding:0.7rem 1.5rem;
+  display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;
+}
+.timer-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+.timer-digits{display:flex;gap:0.4rem;align-items:center;}
+.timer-box{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+  border-radius:4px;padding:0.3rem 0.6rem;text-align:center;min-width:48px;
+}
+.timer-box__num{
+  font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;
+  color:var(--gold);line-height:1;
+}
+.timer-box__lbl{font-size:0.58rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;}
+.timer-sep{font-size:1.2rem;color:var(--amber);font-weight:900;margin-bottom:4px;}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero{
+  padding:3.5rem 1.5rem 2.5rem;
+  text-align:center;
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:600px;height:300px;
+  background:radial-gradient(ellipse,rgba(201,114,32,0.15),transparent 70%);
+  pointer-events:none;
+}
+.hero__badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(201,114,32,0.12);border:1px solid rgba(201,114,32,0.3);
+  color:var(--amber);font-size:0.72rem;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.35rem 1rem;border-radius:100px;margin-bottom:1.4rem;
+}
+.hero__badge::before{content:'✦';font-size:0.6rem;}
+.hero__title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,7vw,3.6rem);
+  font-weight:900;line-height:1.1;
+  color:var(--choc);
+  margin-bottom:1rem;
+  max-width:700px;margin-left:auto;margin-right:auto;
+}
+.hero__title em{font-style:italic;color:var(--amber);}
+.hero__sub{
+  font-size:clamp(0.95rem,2.5vw,1.1rem);
+  color:var(--txt2);line-height:1.75;
+  max-width:520px;margin:0 auto 2rem;
+}
+
+/* VAGAS COUNTER */
+.vagas-box{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  padding:1rem 1.5rem;
+  max-width:420px;margin:0 auto 2rem;
+  box-shadow:0 4px 20px var(--shadow);
+}
+.vagas-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;}
+.vagas-label{font-size:0.75rem;font-weight:700;color:var(--txt2);letter-spacing:0.05em;}
+.vagas-count{font-family:'Fraunces',serif;font-size:0.9rem;font-weight:700;color:var(--red);}
+.vagas-bar{height:8px;background:var(--bg3);border-radius:100px;overflow:hidden;}
+.vagas-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--amber),var(--gold));
+  border-radius:100px;
+  transition:width 1.5s cubic-bezier(0.16,1,0.3,1);
+}
+.vagas-bottom{display:flex;justify-content:space-between;margin-top:0.4rem;font-size:0.7rem;color:var(--txt3);}
+
+/* CTA BUTTONS */
+.btn-hero{
+  display:inline-flex;align-items:center;justify-content:center;gap:0.6rem;
+  background:linear-gradient(135deg,var(--amber2) 0%,var(--amber) 100%);
+  color:#fff;font-weight:800;font-size:0.95rem;
+  letter-spacing:0.06em;text-transform:uppercase;
+  text-decoration:none;padding:1.1rem 2.6rem;border-radius:8px;
+  box-shadow:0 6px 24px rgba(201,114,32,0.45);
+  animation:pulse 2.5s infinite;
+  transition:transform 0.2s;
+  border:none;cursor:pointer;
+}
+.btn-hero:hover{transform:translateY(-2px);}
+.btn-hero::after{content:'→';}
+
+.btn-main{
+  display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;
+  background:var(--choc);color:#fff;
+  font-weight:800;font-size:0.85rem;
+  letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;padding:1rem 2rem;border-radius:6px;
+  box-shadow:0 4px 16px var(--shadow2);
+  transition:transform 0.2s,background 0.2s;
+  border:none;cursor:pointer;
+}
+.btn-main:hover{transform:translateY(-2px);background:var(--choc2);}
+
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:transparent;color:var(--amber);
+  font-weight:700;font-size:0.82rem;
+  letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;padding:0.8rem 1.6rem;border-radius:6px;
+  border:1.5px solid rgba(201,114,32,0.35);
+  transition:all 0.2s;
+}
+.btn-ghost:hover{background:var(--amber);color:#fff;}
+.btn-caption{font-size:0.72rem;color:var(--txt3);margin-top:0.7rem;}
+
+/* ══════════════════════════════════════
+   TRUST STRIP
+══════════════════════════════════════ */
+.trust{
+  background:var(--white);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1rem 1.5rem;overflow-x:auto;
+}
+.trust__inner{
+  display:flex;gap:1.5rem;align-items:center;justify-content:center;flex-wrap:wrap;
+  max-width:900px;margin:0 auto;
+}
+.trust__item{
+  display:flex;align-items:center;gap:0.5rem;
+  white-space:nowrap;font-size:0.76rem;font-weight:600;color:var(--txt2);
+}
+.trust__item .ic{
+  width:28px;height:28px;background:rgba(201,114,32,0.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;
+}
+
+/* ══════════════════════════════════════
+   SECTION SHELL
+══════════════════════════════════════ */
+.sec{padding:4rem 1.5rem;}
+.sec--dark{background:var(--choc);}
+.sec--mid{background:var(--bg2);}
+.sec--warm{background:var(--bg3);}
+.sec--white{background:var(--white);}
+.wrap{max-width:900px;margin:0 auto;}
+.wrap--wide{max-width:1100px;margin:0 auto;}
+.wrap--narrow{max-width:640px;margin:0 auto;}
+
+.sec-label{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.65rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:0.7rem;
+}
+.sec-label::before{content:'';display:block;width:16px;height:2px;background:var(--amber);border-radius:2px;}
+.sec-label--white{color:var(--gold);}
+.sec-label--white::before{background:var(--gold);}
+
+.sec-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.7rem,4vw,2.8rem);
+  font-weight:700;line-height:1.15;color:var(--choc);
+  margin-bottom:1rem;
+}
+.sec-title em{font-style:italic;color:var(--amber);}
+.sec-title--white{color:#fff;}
+.sec-title--center{text-align:center;}
+
+.sec-lead{font-size:0.97rem;color:var(--txt2);line-height:1.8;margin-bottom:1.5rem;}
+.sec-lead--white{color:rgba(255,255,255,0.65);}
+.sec-lead--center{text-align:center;}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.6s ease,transform 0.6s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+
+/* ══════════════════════════════════════
+   PAIN SECTION
+══════════════════════════════════════ */
+.pain-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;
+  margin-top:2rem;
+}
+.pain-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;padding:1.8rem;
+  box-shadow:0 4px 20px var(--shadow);
+}
+.pain-card__title{
+  font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;
+  margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;
+}
+.pain-card__title .tag{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.22rem 0.6rem;border-radius:100px;
+}
+.tag-bad{background:rgba(192,57,26,0.1);color:var(--red);}
+.tag-good{background:rgba(201,114,32,0.12);color:var(--amber);}
+.pain-list,.desire-list{list-style:none;display:flex;flex-direction:column;gap:0.7rem;}
+.pain-list li,.desire-list li{
+  display:flex;align-items:flex-start;gap:0.7rem;
+  font-size:0.9rem;color:var(--txt2);line-height:1.55;
+}
+.pain-list li::before{content:'✕';color:var(--red);font-weight:900;font-size:0.8rem;flex-shrink:0;margin-top:0.15rem;}
+.desire-list li::before{content:'✓';color:var(--amber);font-weight:900;font-size:0.85rem;flex-shrink:0;margin-top:0.1rem;}
+
+/* ══════════════════════════════════════
+   CAKE CAROUSELS
+══════════════════════════════════════ */
+.cake-carousels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2.8rem 2rem;
+  margin-top:2.5rem;
+}
+.cake-carousel{
+  display:flex;flex-direction:column;align-items:center;
+}
+.carousel-row{
+  display:flex;align-items:center;gap:0.7rem;width:100%;
+}
+.carousel-btn{
+  width:38px;height:38px;flex-shrink:0;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:50%;
+  font-size:1.25rem;
+  cursor:pointer;
+  color:var(--choc);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px var(--shadow);
+  transition:background 0.2s,border-color 0.2s,transform 0.15s;
+  line-height:1;
+  padding:0;
+}
+.carousel-btn:hover{background:var(--amber);border-color:var(--amber);color:#fff;transform:scale(1.1);}
+.carousel-inner{
+  flex:1;
+  position:relative;
+  aspect-ratio:4/3;
+  border-radius:14px;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--bg2),var(--bg3));
+  box-shadow:0 8px 28px var(--shadow2);
+}
+.carousel-img{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 0.45s ease;
+  display:block;
+}
+.carousel-img.active{opacity:1;}
+.carousel-ph{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--txt3);font-size:0.7rem;gap:0.4rem;
+  pointer-events:none;z-index:0;
+}
+.carousel-ph span{font-size:2.5rem;opacity:0.3;}
+.carousel-dots{
+  display:flex;gap:6px;margin-top:0.75rem;
+}
+.carousel-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--border);
+  transition:background 0.3s,transform 0.3s;
+  cursor:pointer;
+}
+.carousel-dot.active{background:var(--amber);transform:scale(1.35);}
+.cake-name{
+  font-family:'Fraunces',serif;
+  font-size:1rem;font-weight:700;
+  color:var(--choc);
+  margin-top:0.55rem;
+  text-align:center;
+}
+.cake-sub{
+  font-size:0.73rem;color:var(--txt3);
+  text-align:center;margin-top:0.18rem;
+}
+
+/* ══════════════════════════════════════
+   WHAT YOU LEARN (checklist)
+══════════════════════════════════════ */
+.learn-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;
+}
+.learn-item{
+  display:flex;flex-direction:column;gap:0.5rem;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:10px;padding:1.2rem;
+  box-shadow:0 2px 10px var(--shadow);
+  transition:border-color 0.2s,transform 0.2s;
+}
+.learn-item:hover{border-color:var(--amber);transform:translateY(-2px);}
+.learn-item__icon{font-size:1.5rem;}
+.learn-item__title{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;color:var(--choc);}
+.learn-item__list{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
+.learn-item__list li{font-size:0.78rem;color:var(--txt2);display:flex;align-items:flex-start;gap:0.4rem;}
+.learn-item__list li::before{content:'◆';color:var(--gold);font-size:0.45rem;flex-shrink:0;margin-top:0.3rem;}
+
+/* ══════════════════════════════════════
+   REASONS - NUMBERED CARDS
+══════════════════════════════════════ */
+.reasons{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.reason{
+  background:var(--white);border:1px solid var(--border);border-radius:12px;
+  padding:1.6rem;
+  box-shadow:0 2px 12px var(--shadow);
+  display:flex;gap:1rem;align-items:flex-start;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.reason:hover{transform:translateY(-3px);box-shadow:0 8px 28px var(--shadow2);}
+.reason__n{
+  width:40px;height:40px;flex-shrink:0;
+  background:var(--choc);color:var(--gold);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;
+}
+.reason__title{font-family:'Fraunces',serif;font-size:1rem;color:var(--choc);margin-bottom:0.35rem;}
+.reason__text{font-size:0.85rem;color:var(--txt2);line-height:1.6;}
+
+/* ══════════════════════════════════════
+   BONUSES — GAMIFIED UNLOCK
+══════════════════════════════════════ */
+.bonus-header{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.8rem;
+}
+.bonus-total-badge{
+  background:linear-gradient(135deg,var(--amber2),var(--amber));
+  color:#fff;border-radius:8px;padding:0.7rem 1.2rem;text-align:center;
+  flex-shrink:0;
+}
+.bonus-total-badge__val{
+  font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;line-height:1;
+}
+.bonus-total-badge__lbl{font-size:0.65rem;font-weight:700;opacity:0.8;letter-spacing:0.1em;text-transform:uppercase;}
+.bonus-total-txt{font-size:0.9rem;color:var(--txt2);}
+.bonus-total-txt strong{color:var(--choc);}
+
+.bonus-list{display:flex;flex-direction:column;gap:0.8rem;}
+.bonus{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;padding:1.4rem 1.6rem;
+  display:flex;gap:1.2rem;align-items:flex-start;
+  box-shadow:0 2px 12px var(--shadow);
+  transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;
+  position:relative;overflow:hidden;
+}
+.bonus:hover{border-color:var(--amber);transform:translateX(4px);box-shadow:0 6px 24px var(--shadow2);}
+.bonus::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--amber2),var(--gold));
+  border-radius:0 3px 3px 0;
+}
+.bonus__num{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(201,114,32,0.1);color:var(--amber);
+  border-radius:8px;border:1.5px solid rgba(201,114,32,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1rem;font-weight:700;
+}
+.bonus__content{}
+.bonus__title{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;color:var(--choc);margin-bottom:0.3rem;}
+.bonus__desc{font-size:0.84rem;color:var(--txt2);line-height:1.65;margin-bottom:0.45rem;}
+.bonus__tag{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  background:rgba(201,114,32,0.08);border:1px solid rgba(201,114,32,0.2);
+  color:var(--amber);font-size:0.68rem;font-weight:700;
+  padding:0.22rem 0.6rem;border-radius:100px;letter-spacing:0.05em;
+}
+.bonus__tag::before{content:'🎁';}
+
+/* ══════════════════════════════════════
+   DELIVERY STEPS
+══════════════════════════════════════ */
+.steps-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin-top:2.5rem;position:relative;
+}
+.steps-grid::before{
+  content:'';position:absolute;
+  top:28px;left:calc(12.5% + 20px);right:calc(12.5% + 20px);height:2px;
+  background:linear-gradient(90deg,var(--amber),var(--gold),var(--amber));
+  opacity:0.3;z-index:0;
+}
+.delivery-step{
+  text-align:center;padding:0 1rem;position:relative;z-index:1;
+}
+.delivery-step__icon{
+  width:56px;height:56px;margin:0 auto 1rem;
+  background:var(--white);border:2px solid var(--amber);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  box-shadow:0 4px 16px rgba(201,114,32,0.2);
+}
+.delivery-step__num{
+  position:absolute;top:-4px;right:calc(50% - 28px - 4px);
+  width:18px;height:18px;background:var(--amber);color:#fff;
+  border-radius:50%;font-size:0.6rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.delivery-step__title{font-family:'Fraunces',serif;font-size:0.88rem;font-weight:600;color:var(--choc);margin-bottom:0.3rem;}
+.delivery-step__text{font-size:0.76rem;color:var(--txt2);line-height:1.5;}
+
+/* ══════════════════════════════════════
+   PRICE SECTION
+══════════════════════════════════════ */
+.price-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+  max-width:760px;margin:2.5rem auto 0;
+}
+.price-card{
+  border-radius:16px;padding:2rem;
+  border:1.5px solid var(--border);
+  position:relative;overflow:hidden;
+  background:var(--white);
+}
+.price-card--active{
+  border-color:var(--amber);
+  box-shadow:0 8px 40px rgba(201,114,32,0.2);
+}
+.price-card__glow{
+  position:absolute;top:-60px;right:-60px;
+  width:180px;height:180px;
+  background:radial-gradient(circle,rgba(240,184,72,0.2),transparent 70%);
+  pointer-events:none;
+}
+.price-card__flag{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-size:0.65rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.28rem 0.8rem;border-radius:100px;margin-bottom:1rem;
+}
+.flag-hot{background:var(--red);color:#fff;}
+.flag-soon{background:var(--bg2);color:var(--txt3);}
+.price-card__name{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--choc);margin-bottom:1.2rem;}
+.price-card__list{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;}
+.price-card__list li{font-size:0.82rem;color:var(--txt2);display:flex;align-items:center;gap:0.5rem;}
+.price-card__list .ck{color:var(--amber);font-weight:800;font-size:0.85rem;}
+.price-card__old{font-size:0.82rem;color:var(--txt3);text-decoration:line-through;margin-bottom:0.2rem;}
+.price-card__price{
+  font-family:'Fraunces',serif;font-size:3.2rem;font-weight:900;color:var(--choc);line-height:1;margin-bottom:0.3rem;
+}
+.price-card__price sup{font-size:1.2rem;vertical-align:top;margin-top:0.5rem;}
+.price-card__inst{font-size:0.76rem;color:var(--txt3);margin-bottom:1.5rem;}
+.price-card__soon{font-family:'Fraunces',serif;font-size:1.8rem;font-style:italic;color:var(--txt3);padding:0.8rem 0 1rem;}
+.price-card--dimmed{opacity:0.5;filter:grayscale(0.3);}
+
+/* GUARANTEE */
+.guarantee{
+  display:flex;gap:1.5rem;align-items:center;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;padding:1.8rem;margin-top:2rem;
+  box-shadow:0 4px 20px var(--shadow);
+  max-width:660px;margin-left:auto;margin-right:auto;margin-top:2rem;
+}
+.guarantee__icon{font-size:3rem;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(201,114,32,0.4));}
+.guarantee__title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--choc);margin-bottom:0.35rem;}
+.guarantee__text{font-size:0.85rem;color:var(--txt2);line-height:1.65;}
+
+/* ══════════════════════════════════════
+   STATS COUNTERS
+══════════════════════════════════════ */
+.stats{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:2.5rem;
+  padding:2.5rem 1.5rem;
+  background:var(--choc);
+}
+.stat{text-align:center;}
+.stat__val{
+  font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;color:var(--gold);line-height:1;
+}
+.stat__lbl{font-size:0.72rem;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+.faq{margin-top:2rem;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{
+  width:100%;background:none;border:none;
+  color:var(--choc);text-align:left;
+  padding:1.1rem 0;
+  font-family:'Fraunces',serif;font-size:1rem;font-weight:600;
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  transition:color 0.2s;
+}
+.faq-q:hover{color:var(--amber);}
+.faq-toggle{
+  width:26px;height:26px;background:rgba(201,114,32,0.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--amber);font-size:1.1rem;font-weight:300;flex-shrink:0;
+  transition:transform 0.3s,background 0.2s;
+}
+.faq-item.open .faq-toggle{transform:rotate(45deg);background:var(--amber);color:#fff;}
+.faq-a{font-size:0.9rem;color:var(--txt2);line-height:1.75;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.2s;}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.2rem;}
+
+/* ══════════════════════════════════════
+   FINAL CTA
+══════════════════════════════════════ */
+.final-cta{
+  padding:5rem 1.5rem;text-align:center;
+  background:linear-gradient(160deg,var(--choc2) 0%,var(--choc) 100%);
+  position:relative;overflow:hidden;
+}
+.final-cta::before{
+  content:'';position:absolute;
+  bottom:-100px;left:50%;transform:translateX(-50%);
+  width:600px;height:300px;
+  background:radial-gradient(ellipse,rgba(201,114,32,0.3),transparent 65%);
+  pointer-events:none;
+}
+.final-cta__title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.9rem,5vw,3rem);
+  font-weight:900;color:#fff;line-height:1.15;
+  max-width:560px;margin:0 auto 0.8rem;position:relative;
+}
+.final-cta__title em{font-style:italic;color:var(--gold);}
+.final-cta__sub{font-size:0.95rem;color:rgba(255,255,255,0.55);margin-bottom:2.2rem;position:relative;}
+
+footer{
+  background:var(--choc);border-top:1px solid rgba(255,255,255,0.06);
+  padding:2rem 1.5rem;text-align:center;
+  font-size:0.7rem;color:rgba(255,255,255,0.35);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:768px){
+  .sticky-cta{display:flex;}
+  body{padding-bottom:80px;}
+
+  .pain-grid{grid-template-columns:1fr;}
+  .cake-carousels{grid-template-columns:repeat(2,1fr);}
+  .learn-grid{grid-template-columns:1fr 1fr;}
+  .reasons{grid-template-columns:1fr;}
+  .steps-grid{
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+  }
+  .steps-grid::before{display:none;}
+  .price-wrap{grid-template-columns:1fr;}
+  .guarantee{flex-direction:column;text-align:center;}
+  .stats{gap:1.5rem;}
+  .stat__val{font-size:2rem;}
+  .bonus{flex-direction:column;}
+}
+@media(max-width:480px){
+  .cake-carousels{grid-template-columns:1fr;}
+  .learn-grid{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr;}
+  .hero__title{font-size:2rem;}
+  .carousel-btn{width:32px;height:32px;font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="https://pay.hotmart.com/P104907668U?checkoutMode=10">¡Quiero mi acceso — USD $27!</a>
+  <p>🔒 Pago seguro · Acceso inmediato · 7 días de garantía</p>
+</div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">🔥 Oferta de lanzamiento — <b>50% de descuento</b> — Solo por tiempo limitado</div>
+
+<!-- COUNTDOWN TIMER -->
+<div class="timer-bar">
+  <span class="timer-label">La oferta cierra en</span>
+  <div class="timer-digits">
+    <div class="timer-box">
+      <div class="timer-box__num" id="t-h">00</div>
+      <div class="timer-box__lbl">horas</div>
+    </div>
+    <span class="timer-sep">:</span>
+    <div class="timer-box">
+      <div class="timer-box__num" id="t-m">00</div>
+      <div class="timer-box__lbl">min</div>
+    </div>
+    <span class="timer-sep">:</span>
+    <div class="timer-box">
+      <div class="timer-box__num" id="t-s">00</div>
+      <div class="timer-box__lbl">seg</div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__badge">Masterclass Exclusiva · Pasteles de Feria</div>
+  <h1 class="hero__title reveal">
+    Los pasteles que <em>hacen fila</em> —<br/>aprende a hacerlos<br/>y véndelos desde ya
+  </h1>
+  <p class="hero__sub reveal reveal-delay-1">
+    Recetas exclusivas paso a paso que generan ganancias reales desde el primer lote —
+    aunque nunca hayas horneado antes en tu vida.
+  </p>
+
+  <!-- VAGAS BOX (gamification) -->
+  <div class="vagas-box reveal reveal-delay-2">
+    <div class="vagas-top">
+      <span class="vagas-label">⚡ Cupos del Lote 1</span>
+      <span class="vagas-count" id="vagas-txt">Cargando...</span>
+    </div>
+    <div class="vagas-bar"><div class="vagas-fill" id="vagas-fill"></div></div>
+    <div class="vagas-bottom"><span>0 cupos</span><span id="vagas-max">100 cupos</span></div>
+  </div>
+
+  <a href="https://pay.hotmart.com/P104907668U?checkoutMode=10" class="btn-hero reveal reveal-delay-3">
+    ¡Garantizar mi acceso ahora!
+  </a>
+  <p class="btn-caption reveal reveal-delay-4">Pago 100% seguro · USD $27 · Acceso de por vida · 7 días de garantía</p>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="trust__inner">
+    <div class="trust__item"><div class="ic">📱</div>Celular, tablet o PC</div>
+    <div class="trust__item"><div class="ic">🔒</div>Pago 100% seguro</div>
+    <div class="trust__item"><div class="ic">♾️</div>Acceso de por vida</div>
+    <div class="trust__item"><div class="ic">🎓</div>Certificado oficial</div>
+    <div class="trust__item"><div class="ic">↩️</div>7 días de garantía</div>
+    <div class="trust__item"><div class="ic">⚡</div>Acceso inmediato</div>
+  </div>
+</div>
+
+<!-- STATS COUNTERS -->
+<div class="stats">
+  <div class="stat"><div class="stat__val" data-target="8">0</div><div class="stat__lbl">Sabores exclusivos</div></div>
+  <div class="stat"><div class="stat__val" data-target="128">0</div><div class="stat__lbl">USD en bonos incluidos</div></div>
+  <div class="stat"><div class="stat__val" data-target="60">0</div><div class="stat__lbl">% de margen mínimo</div></div>
+  <div class="stat"><div class="stat__val" data-target="5">0</div><div class="stat__lbl">Minutos para tu primer acceso</div></div>
+</div>
+
+<!-- PAIN / DESIRE -->
+<section class="sec sec--white">
+  <div class="wrap">
+    <p class="sec-label">¿Te identificas?</p>
+    <h2 class="sec-title reveal">¿Quieres ganar dinero desde tu cocina?</h2>
+    <div class="pain-grid">
+      <div class="pain-card reveal reveal-delay-1">
+        <p class="pain-card__title"><span class="tag tag-bad">Sin esta masterclass</span></p>
+        <ul class="pain-list">
+          <li>No sabes qué recetas se venden de verdad en ferias</li>
+          <li>Miedo de invertir en ingredientes y que no funcione</li>
+          <li>Buscas en YouTube y todo parece igual — sin diferencial</li>
+          <li>Sientes que sin experiencia no puedes competir</li>
+          <li>No sabes a qué precio vender ni cómo presentar tus pasteles</li>
+        </ul>
+      </div>
+      <div class="pain-card reveal reveal-delay-2">
+        <p class="pain-card__title"><span class="tag tag-good">Con esta masterclass</span></p>
+        <ul class="desire-list">
+          <li>Sabes exactamente qué receta vender y cómo presentarla</li>
+          <li>Recuperas la inversión en el primer fin de semana de ventas</li>
+          <li>Tienes recetas exclusivas que nadie más tiene en tu feria</li>
+          <li>Empiezas desde cero con un paso a paso claro y sin errores</li>
+          <li>Tienes un negocio propio que depende de ti — no de un jefe</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section class="sec" style="padding-top:0;">
+  <div class="wrap--wide">
+    <p class="sec-label reveal">Lo que aprenderás a hacer</p>
+    <h2 class="sec-title reveal reveal-delay-1">8 sabores que <em>se venden solos</em> en cualquier feria</h2>
+    <p class="sec-lead reveal reveal-delay-2">Fotos reales — recetas exclusivas que no están en YouTube. Cada sabor fue elegido por su demanda probada y margen de ganancia alto.</p>
+
+    <div class="cake-carousels reveal reveal-delay-2">
+
+      <!-- BOLO 1: foto-01 + foto-02 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🍫</span></div>
+            <img class="carousel-img active" src="images/foto-01.jpg" alt="Chocolate con Brigadeiro" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-02.jpg" alt="Chocolate con Brigadeiro 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Chocolate con Brigadeiro</p>
+        <p class="cake-sub">El más vendido en ferias</p>
+      </div>
+
+      <!-- BOLO 2: foto-03 + foto-04 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🍮</span></div>
+            <img class="carousel-img active" src="images/foto-03.jpg" alt="Budín Pudim" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-04.jpg" alt="Budín Pudim 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Budín / Pudim</p>
+        <p class="cake-sub">El clásico que nunca falla</p>
+      </div>
+
+      <!-- BOLO 3: foto-05 + foto-06 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🍬</span></div>
+            <img class="carousel-img active" src="images/foto-05.jpg" alt="Bombón Ouro Branco" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-06.jpg" alt="Bombón Ouro Branco 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Bombón Ouro Branco</p>
+        <p class="cake-sub">Precio premium, alta demanda</p>
+      </div>
+
+      <!-- BOLO 4: foto-07 + foto-08 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🍪</span></div>
+            <img class="carousel-img active" src="images/foto-07.jpg" alt="Chocolate KitKat" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-08.jpg" alt="Chocolate KitKat 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Chocolate con KitKat</p>
+        <p class="cake-sub">Favorito de temporada</p>
+      </div>
+
+      <!-- BOLO 5: foto-09 + foto-10 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🌙</span></div>
+            <img class="carousel-img active" src="images/foto-09.jpg" alt="Maracuyá con Chocolate" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-10.jpg" alt="Maracuyá con Chocolate 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Maracuyá con Chocolate</p>
+        <p class="cake-sub">Contraste que enamora</p>
+      </div>
+
+      <!-- BOLO 6: foto-11 + foto-12 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🍓</span></div>
+            <img class="carousel-img active" src="images/foto-11.jpg" alt="Nido Fresa Brigadeiro" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-12.jpg" alt="Nido Fresa Brigadeiro 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Nido, Fresa y Brigadeiro</p>
+        <p class="cake-sub">Viral en redes sociales</p>
+      </div>
+
+      <!-- BOLO 7: foto-13 + foto-14 -->
+      <div class="cake-carousel">
+        <div class="carousel-row">
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),-1)" aria-label="Anterior">&#8249;</button>
+          <div class="carousel-inner">
+            <div class="carousel-ph"><span>🥥</span></div>
+            <img class="carousel-img active" src="images/foto-13.jpg" alt="Prestígio de Coco" onerror="this.style.display='none'"/>
+            <img class="carousel-img" src="images/foto-14.jpg" alt="Prestígio de Coco 2" onerror="this.style.display='none'"/>
+          </div>
+          <button class="carousel-btn" onclick="slideCake(this.closest('.cake-carousel'),1)" aria-label="Siguiente">&#8250;</button>
+        </div>
+        <div class="carousel-dots"><div class="carousel-dot active"></div><div class="carousel-dot"></div></div>
+        <p class="cake-name">Prestígio de Coco Quemado</p>
+        <p class="cake-sub">Receta exclusiva</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU LEARN -->
+<section class="sec sec--mid">
+  <div class="wrap--wide">
+    <p class="sec-label reveal">Contenido completo</p>
+    <h2 class="sec-title reveal reveal-delay-1">Todo lo que aprendes <em>en detalle</em></h2>
+    <div class="learn-grid">
+      <div class="learn-item reveal reveal-delay-1">
+        <div class="learn-item__icon">🥄</div>
+        <p class="learn-item__title">2 Masas Base</p>
+        <ul class="learn-item__list"><li>Masa de vainilla clásica</li><li>Masa de chocolate húmedo</li></ul>
+      </div>
+      <div class="learn-item reveal reveal-delay-2">
+        <div class="learn-item__icon">🍯</div>
+        <p class="learn-item__title">8 Rellenos Exclusivos</p>
+        <ul class="learn-item__list"><li>Crema de nido</li><li>Crema de chocolate</li><li>Dulce de leche</li><li>Cocada, maracuyá, piña, ciruela...</li></ul>
+      </div>
+      <div class="learn-item reveal reveal-delay-3">
+        <div class="learn-item__icon">🎂</div>
+        <p class="learn-item__title">3 Coberturas + 2 Caldos</p>
+        <ul class="learn-item__list"><li>Chantininho profesional</li><li>Crema de chocolate</li><li>Ganache para decoración</li><li>Caldos de nido y brigadeiro</li></ul>
+      </div>
+      <div class="learn-item reveal reveal-delay-1">
+        <div class="learn-item__icon">✨</div>
+        <p class="learn-item__title">Técnicas de Presentación</p>
+        <ul class="learn-item__list"><li>Montaje profesional</li><li>Técnicas de acabado</li><li>Embalaje para feria y regalo</li></ul>
+      </div>
+      <div class="learn-item reveal reveal-delay-2">
+        <div class="learn-item__icon">📄</div>
+        <p class="learn-item__title">E-book Imprimible</p>
+        <ul class="learn-item__list"><li>PDF de alta calidad</li><li>Medidas exactas</li><li>Tuyo de por vida — sin internet</li></ul>
+      </div>
+      <div class="learn-item reveal reveal-delay-3">
+        <div class="learn-item__icon">🎓</div>
+        <p class="learn-item__title">Certificado Oficial</p>
+        <ul class="learn-item__list"><li>Descargable al finalizar</li><li>Certifica tu formación</li><li>Desde la plataforma Hotmart</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section class="sec sec--white">
+  <div class="wrap">
+    <p class="sec-label reveal">¿Por qué esta masterclass?</p>
+    <h2 class="sec-title reveal reveal-delay-1">Cuatro razones para <em>no dejarlo pasar</em></h2>
+    <div class="reasons">
+      <div class="reason reveal reveal-delay-1">
+        <div class="reason__n">01</div>
+        <div>
+          <p class="reason__title">Recetas que no están en internet</p>
+          <p class="reason__text">Contenido 100% exclusivo — no lo encontrarás en YouTube ni en ningún blog. Ventaja real sobre cualquier competidora en tu feria.</p>
+        </div>
+      </div>
+      <div class="reason reveal reveal-delay-2">
+        <div class="reason__n">02</div>
+        <div>
+          <p class="reason__title">Sabores con demanda probada</p>
+          <p class="reason__text">No son recetas inventadas. Son pasteles ya validados en el mercado, con ingredientes de calidad y técnicas que garantizan precio de venta mayor.</p>
+        </div>
+      </div>
+      <div class="reason reveal reveal-delay-3">
+        <div class="reason__n">03</div>
+        <div>
+          <p class="reason__title">Paso a paso para cualquier nivel</p>
+          <p class="reason__text">Instrucciones tan claras que alguien sin ninguna experiencia puede preparar estos pasteles y tenerlos listos para vender desde el primer día.</p>
+        </div>
+      </div>
+      <div class="reason reveal reveal-delay-4">
+        <div class="reason__n">04</div>
+        <div>
+          <p class="reason__title">Empieza a vender esta semana</p>
+          <p class="reason__text">No es solo un curso de recetas — es una hoja de ruta completa con todo lo que necesitas para tu primer día de ventas en feria.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BONUSES -->
+<section class="sec sec--mid">
+  <div class="wrap">
+    <p class="sec-label reveal">🎁 Incluido en tu compra</p>
+    <h2 class="sec-title reveal reveal-delay-1">Bonos que <em>hacen la diferencia</em> entre un hobby y un negocio</h2>
+
+    <div class="bonus-header reveal reveal-delay-2">
+      <div class="bonus-total-badge">
+        <div class="bonus-total-badge__val">$128</div>
+        <div class="bonus-total-badge__lbl">en bonos</div>
+      </div>
+      <p class="bonus-total-txt"><strong>4 bonos exclusivos</strong> incluidos sin costo adicional — todo lo que necesitas para convertir las recetas en un negocio real desde el primer día.</p>
+    </div>
+
+    <div class="bonus-list">
+      <div class="bonus reveal reveal-delay-1">
+        <div class="bonus__num">1</div>
+        <div class="bonus__content">
+          <p class="bonus__title">Guía de Precios y Rentabilidad</p>
+          <p class="bonus__desc">Aprende exactamente cuánto cobrar por cada pastel para tener un margen mínimo del 60% en cada venta. Incluye una calculadora de costos — solo ingresas el precio de tus ingredientes y obtienes el precio de venta ideal.</p>
+          <span class="bonus__tag">Valor: $37 — tuyo sin costo adicional</span>
+        </div>
+      </div>
+      <div class="bonus reveal reveal-delay-2">
+        <div class="bonus__num">2</div>
+        <div class="bonus__content">
+          <p class="bonus__title">Manual de Presentación y Empaque que Vende</p>
+          <p class="bonus__desc">Descubre cómo presentar tus pasteles para que la gente te pregunte el precio antes de que tú digas nada. La diferencia entre un pastel que se vende y uno que vuelve a casa contigo muchas veces no está en el sabor.</p>
+          <span class="bonus__tag">Valor: $27 — tuyo sin costo adicional</span>
+        </div>
+      </div>
+      <div class="bonus reveal reveal-delay-3">
+        <div class="bonus__num">3</div>
+        <div class="bonus__content">
+          <p class="bonus__title">Checklist: Todo para tu Primer Día de Ventas</p>
+          <p class="bonus__desc">La lista completa de materiales, herramientas, cantidades y organización para que tu primer día en feria sea un éxito — sin olvidar nada, sin gastar de más. Lista para imprimir la noche anterior.</p>
+          <span class="bonus__tag">Valor: $17 — tuyo sin costo adicional</span>
+        </div>
+      </div>
+      <div class="bonus reveal reveal-delay-4">
+        <div class="bonus__num">4</div>
+        <div class="bonus__content">
+          <p class="bonus__title">E-book Imprimible de Todas las Recetas</p>
+          <p class="bonus__desc">PDF profesional de alta calidad con todas las recetas, ingredientes con medidas exactas y modos de preparación. Imprímelo y tenlo en tu cocina para siempre — sin depender de internet mientras cocinas.</p>
+          <span class="bonus__tag">Valor: $47 — tuyo sin costo adicional</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW YOU RECEIVE -->
+<section class="sec sec--white">
+  <div class="wrap">
+    <p class="sec-label reveal">Acceso inmediato</p>
+    <h2 class="sec-title sec-title--center reveal reveal-delay-1">Tu masterclass en <em>5 minutos</em></h2>
+    <div class="steps-grid">
+      <div class="delivery-step reveal reveal-delay-1">
+        <div class="delivery-step__icon">💳<span class="delivery-step__num">1</span></div>
+        <p class="delivery-step__title">Pago seguro</p>
+        <p class="delivery-step__text">Tarjeta, Pix, transferencia u otros métodos locales vía Hotmart</p>
+      </div>
+      <div class="delivery-step reveal reveal-delay-2">
+        <div class="delivery-step__icon">📧<span class="delivery-step__num">2</span></div>
+        <p class="delivery-step__title">Email de acceso</p>
+        <p class="delivery-step__text">Recibes tu enlace de acceso en minutos — las 24 horas del día</p>
+      </div>
+      <div class="delivery-step reveal reveal-delay-3">
+        <div class="delivery-step__icon">▶️<span class="delivery-step__num">3</span></div>
+        <p class="delivery-step__title">Mira las clases</p>
+        <p class="delivery-step__text">En celular, tablet, PC o televisión — cuantas veces quieras, de por vida</p>
+      </div>
+      <div class="delivery-step reveal reveal-delay-4">
+        <div class="delivery-step__icon">📥<span class="delivery-step__num">4</span></div>
+        <p class="delivery-step__title">Descarga tus materiales</p>
+        <p class="delivery-step__text">E-book y certificado disponibles directo desde la plataforma Hotmart</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec sec--mid" style="text-align:center;">
+  <div class="wrap">
+    <p class="sec-label reveal" style="justify-content:center; display:flex;">Oferta de lanzamiento</p>
+    <h2 class="sec-title sec-title--center reveal reveal-delay-1">Elige tu <em>lote</em></h2>
+    <p class="sec-lead sec-lead--center reveal reveal-delay-2" style="max-width:420px;margin:0 auto;">
+      Lote 1 con 50% de descuento. Una vez agotados los cupos, el precio sube sin aviso.
+    </p>
+
+    <div class="price-wrap">
+      <div class="price-card price-card--active reveal reveal-delay-1">
+        <div class="price-card__glow"></div>
+        <span class="price-card__flag flag-hot">🔥 Disponible ahora</span>
+        <p class="price-card__name">Lote 1 — Precio de Lanzamiento</p>
+        <ul class="price-card__list">
+          <li><span class="ck">✦</span> Masterclass completa de Pasteles de Feria</li>
+          <li><span class="ck">✦</span> 8 videos de recetas exclusivas</li>
+          <li><span class="ck">✦</span> E-book imprimible de recetas</li>
+          <li><span class="ck">✦</span> Certificado oficial</li>
+          <li><span class="ck">✦</span> Acceso de por vida</li>
+          <li><span class="ck">✦</span> 🎁 Bono #1 — Guía de Precios ($37)</li>
+          <li><span class="ck">✦</span> 🎁 Bono #2 — Manual Presentación ($27)</li>
+          <li><span class="ck">✦</span> 🎁 Bono #3 — Checklist día ventas ($17)</li>
+          <li><span class="ck">✦</span> 🎁 Bono #4 — E-book premium ($47)</li>
+        </ul>
+        <p class="price-card__old">Antes: USD $47</p>
+        <p class="price-card__price"><sup>USD $</sup>27</p>
+        <p class="price-card__inst">o en cuotas según tu banco</p>
+        <a href="https://pay.hotmart.com/P104907668U?checkoutMode=10" class="btn-hero" style="display:flex;width:100%;text-align:center;animation:pulse 2s infinite;">
+          ¡Garantizar acceso ahora!
+        </a>
+      </div>
+      <div class="price-card price-card--dimmed reveal reveal-delay-2">
+        <span class="price-card__flag flag-soon">Próximamente</span>
+        <p class="price-card__name">Lote 2 — Precio Regular</p>
+        <ul class="price-card__list">
+          <li><span style="color:var(--border)">✦</span> Masterclass completa</li>
+          <li><span style="color:var(--border)">✦</span> 8 videos de recetas</li>
+          <li><span style="color:var(--border)">✦</span> E-book imprimible</li>
+          <li><span style="color:var(--border)">✦</span> Certificado oficial</li>
+          <li><span style="color:var(--border)">✦</span> Acceso de por vida</li>
+        </ul>
+        <p class="price-card__soon">Disponible en breve</p>
+        <p class="price-card__old">Precio Lote 1: USD $27</p>
+        <p class="price-card__price" style="color:var(--txt3)"><sup>USD $</sup>37</p>
+        <p class="price-card__inst">&nbsp;</p>
+        <span style="display:block;text-align:center;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--txt3);padding:0.9rem;border:1px solid var(--border);border-radius:6px;">No disponible aún</span>
+      </div>
+    </div>
+
+    <div class="guarantee reveal">
+      <div class="guarantee__icon">🛡️</div>
+      <div>
+        <p class="guarantee__title">Garantía incondicional de 7 días</p>
+        <p class="guarantee__text">Si por cualquier razón no quedas satisfecha dentro de los primeros 7 días, te devolvemos el 100% de tu dinero. Sin preguntas, sin formularios, sin excusas. El riesgo es completamente nuestro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec sec--white">
+  <div class="wrap--narrow">
+    <p class="sec-label reveal" style="justify-content:center; display:flex;">Preguntas frecuentes</p>
+    <h2 class="sec-title sec-title--center reveal reveal-delay-1">¿Tienes dudas? <em>Aquí respondemos todo</em></h2>
+    <div class="faq reveal reveal-delay-2">
+      <div class="faq-item">
+        <button class="faq-q">¿Dónde veo las clases?<span class="faq-toggle">+</span></button>
+        <div class="faq-a">Dentro de la plataforma Hotmart, una de las más grandes y confiables de América Latina. Puedes acceder desde tu celular, tablet, computadora o televisión — donde quieras y cuando quieras.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Necesito experiencia previa?<span class="faq-toggle">+</span></button>
+        <div class="faq-a">No. Las clases están diseñadas con un paso a paso tan detallado que cualquier persona puede seguirlas, incluso sin haber horneado nunca. Empiezas desde cero y terminas con recetas listas para vender.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cuántas veces puedo ver las clases?<span class="faq-toggle">+</span></button>
+        <div class="faq-a">Ilimitadas veces. Tu acceso es de por vida — nunca vence. Puedes volver al curso cuando lo necesites y estará ahí completo para ti.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Puedo descargar el e-book y el certificado?<span class="faq-toggle">+</span></button>
+        <div class="faq-a">Sí. El e-book PDF está disponible para descarga directa desde la plataforma. El certificado oficial también se descarga desde Hotmart al finalizar el curso.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Qué formas de pago aceptan?<span class="faq-toggle">+</span></button>
+        <div class="faq-a">Tarjeta de crédito, débito, Pix, transferencia bancaria y otros métodos locales disponibles según tu país — todo procesado por Hotmart de forma 100% segura.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Y si no me gusta el curso?<span class="faq-toggle">+</span></button>
+        <div class="faq-a">Tienes 7 días de garantía incondicional. Si dentro de ese plazo no quedas satisfecha, envías un mensaje al soporte y te devolvemos el 100% de tu dinero. Sin preguntas.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="https://wa.me/5528999258251?text=Hola%2C%20tengo%20preguntas%20sobre%20Pasteles%20de%20Feria" class="btn-ghost">
+        💬 Hablar con soporte por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <p class="sec-label sec-label--white reveal" style="justify-content:center;display:flex;">Solo por tiempo limitado</p>
+  <h2 class="final-cta__title reveal reveal-delay-1">
+    Tu cocina puede ser el inicio de algo que <em>cambie tu vida</em>
+  </h2>
+  <p class="final-cta__sub reveal reveal-delay-2">El Lote 1 tiene cupos limitados. El precio sube sin aviso cuando se agoten.</p>
+  <a href="https://pay.hotmart.com/P104907668U?checkoutMode=10" class="btn-hero reveal reveal-delay-3" style="position:relative;">
+    ¡Garantizar mi acceso — USD $27!
+  </a>
+  <p class="btn-caption reveal reveal-delay-4" style="color:rgba(255,255,255,0.45);display:block;margin-top:1rem;">
+    Acceso inmediato · Pago 100% seguro · 7 días de garantía incondicional
+  </p>
+</section>
+
+<footer>
+  <p>© 2024 Pasteles de Feria Masterclass — Todos los derechos reservados.</p>
+  <p style="margin-top:0.4rem;font-size:0.62rem;">Este sitio no forma parte de Facebook Inc. FACEBOOK es una marca registrada de FACEBOOK Inc.</p>
+</footer>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+/* COUNTDOWN TIMER (23h 59m 59s) */
+(function(){
+  var KEY='pf_timer_end';
+  var end=localStorage.getItem(KEY);
+  if(!end||Date.now()>parseInt(end)){
+    end=Date.now()+(23*3600+59*60+59)*1000;
+    localStorage.setItem(KEY,end);
+  }
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var diff=Math.max(0,parseInt(end)-Date.now());
+    var h=Math.floor(diff/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    var s=Math.floor((diff%60000)/1000);
+    document.getElementById('t-h').textContent=pad(h);
+    document.getElementById('t-m').textContent=pad(m);
+    document.getElementById('t-s').textContent=pad(s);
+    if(diff>0) setTimeout(tick,1000);
+  }
+  tick();
+})();
+
+/* VAGAS (spots taken) */
+(function(){
+  var total=100, taken=73;
+  document.getElementById('vagas-txt').textContent=taken+' de '+total+' cupos tomados';
+  document.getElementById('vagas-max').textContent=total+' cupos';
+  setTimeout(function(){
+    document.getElementById('vagas-fill').style.width=(taken/total*100)+'%';
+  },600);
+})();
+
+/* SCROLL PROGRESS BAR */
+window.addEventListener('scroll',function(){
+  var s=document.documentElement.scrollTop;
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(s/h*100)+'%';
+});
+
+/* SCROLL REVEAL */
+var reveals=document.querySelectorAll('.reveal');
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+  });
+},{threshold:0.12});
+reveals.forEach(function(el){obs.observe(el);});
+
+/* ANIMATED COUNTERS */
+var counters=document.querySelectorAll('[data-target]');
+var countObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(!e.isIntersecting) return;
+    var el=e.target, target=parseInt(el.dataset.target), start=0, dur=1800;
+    var step=target/dur*16;
+    var t=setInterval(function(){
+      start=Math.min(start+step,target);
+      el.textContent=Math.round(start)+(el.dataset.suffix||'');
+      if(start>=target) clearInterval(t);
+    },16);
+    countObs.unobserve(el);
+  });
+},{threshold:0.5});
+counters.forEach(function(el){countObs.observe(el);});
+
+/* CAKE CAROUSELS */
+function slideCake(carousel,dir){
+  var imgs=carousel.querySelectorAll('.carousel-img');
+  var dots=carousel.querySelectorAll('.carousel-dot');
+  var cur=0;
+  imgs.forEach(function(img,i){if(img.classList.contains('active'))cur=i;});
+  imgs[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur=(cur+dir+imgs.length)%imgs.length;
+  imgs[cur].classList.add('active');
+  dots[cur].classList.add('active');
+}
+/* Click on dots */
+document.querySelectorAll('.carousel-dot').forEach(function(dot,_){
+  dot.addEventListener('click',function(){
+    var carousel=dot.closest('.cake-carousel');
+    var dots=Array.from(carousel.querySelectorAll('.carousel-dot'));
+    var imgs=carousel.querySelectorAll('.carousel-img');
+    var target=dots.indexOf(dot);
+    dots.forEach(function(d){d.classList.remove('active');});
+    imgs.forEach(function(img){img.classList.remove('active');});
+    dots[target].classList.add('active');
+    imgs[target].classList.add('active');
+  });
+});
+
+/* FAQ */
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var item=btn.closest('.faq-item');
+    var open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+    if(!open) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
