@@ -114,17 +114,24 @@ img{display:block;max-width:100%;}
    HERO
 ══════════════════════════════════════ */
 .hero{
-  padding:3.5rem 1.5rem 2.5rem;
-  text-align:center;
-  background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  padding:3.5rem 1.5rem 3rem;
+  background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);
   position:relative;overflow:hidden;
 }
 .hero::before{
-  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
-  width:600px;height:300px;
-  background:radial-gradient(ellipse,rgba(201,114,32,0.15),transparent 70%);
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:500px;height:500px;
+  background:radial-gradient(ellipse,rgba(201,114,32,0.12),transparent 65%);
   pointer-events:none;
 }
+.hero-inner{
+  max-width:1020px;margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:3rem;
+  align-items:center;
+}
+.hero-text{display:flex;flex-direction:column;align-items:flex-start;}
 .hero__badge{
   display:inline-flex;align-items:center;gap:0.5rem;
   background:rgba(201,114,32,0.12);border:1px solid rgba(201,114,32,0.3);
@@ -135,17 +142,89 @@ img{display:block;max-width:100%;}
 .hero__badge::before{content:'✦';font-size:0.6rem;}
 .hero__title{
   font-family:'Fraunces',serif;
-  font-size:clamp(2rem,7vw,3.6rem);
-  font-weight:900;line-height:1.1;
+  font-weight:900;
+  line-height:1;
   color:var(--choc);
-  margin-bottom:1rem;
-  max-width:700px;margin-left:auto;margin-right:auto;
+  margin-bottom:1.2rem;
 }
-.hero__title em{font-style:italic;color:var(--amber);}
+.hero__title .ht-small{
+  display:block;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(0.9rem,2vw,1.05rem);
+  font-weight:600;
+  color:var(--txt2);
+  letter-spacing:0.05em;
+  margin-bottom:0.2rem;
+}
+.hero__title .ht-big{
+  display:block;
+  font-size:clamp(2.8rem,7vw,5rem);
+  line-height:0.92;
+  text-transform:uppercase;
+  letter-spacing:-0.02em;
+  color:var(--choc);
+}
+.hero__title .ht-orange{
+  color:var(--amber);
+}
+.hero__title .ht-sub{
+  display:block;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(1rem,2.2vw,1.2rem);
+  font-weight:700;
+  color:var(--txt2);
+  letter-spacing:0;
+  margin-top:0.5rem;
+  line-height:1.3;
+}
+.hero__title .ht-exclaim{
+  display:inline-block;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(0.95rem,2vw,1.1rem);
+  font-weight:800;
+  color:#fff;
+  background:var(--red);
+  padding:0.28rem 0.9rem;
+  border-radius:4px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-top:0.6rem;
+}
 .hero__sub{
-  font-size:clamp(0.95rem,2.5vw,1.1rem);
+  font-size:clamp(0.9rem,1.8vw,1rem);
   color:var(--txt2);line-height:1.75;
-  max-width:520px;margin:0 auto 2rem;
+  margin-bottom:1.8rem;
+  max-width:480px;
+}
+
+/* HERO IMAGE */
+.hero-image{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 24px 64px rgba(30,9,2,0.28);
+  background:var(--bg3);
+  aspect-ratio:9/14;
+}
+.hero-image img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  display:block;
+}
+.hero-image__ph{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0.8rem;color:var(--txt3);font-size:0.8rem;
+  position:absolute;top:0;left:0;
+}
+.hero-image__ph span{font-size:3rem;opacity:0.3;}
+.hero-image__badge{
+  position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);
+  background:rgba(30,9,2,0.75);backdrop-filter:blur(8px);
+  color:#fff;font-size:0.7rem;font-weight:700;
+  padding:0.4rem 1rem;border-radius:100px;
+  white-space:nowrap;letter-spacing:0.06em;
+  border:1px solid rgba(255,255,255,0.15);
 }
 
 /* VAGAS COUNTER */
@@ -388,21 +467,54 @@ img{display:block;max-width:100%;}
    WHAT YOU LEARN (checklist)
 ══════════════════════════════════════ */
 .learn-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;
 }
 .learn-item{
-  display:flex;flex-direction:column;gap:0.5rem;
+  display:flex;flex-direction:column;
   background:var(--white);border:1px solid var(--border);
-  border-radius:10px;padding:1.2rem;
-  box-shadow:0 2px 10px var(--shadow);
-  transition:border-color 0.2s,transform 0.2s;
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 4px 16px var(--shadow);
+  transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;
 }
-.learn-item:hover{border-color:var(--amber);transform:translateY(-2px);}
-.learn-item__icon{font-size:1.5rem;}
-.learn-item__title{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;color:var(--choc);}
-.learn-item__list{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
-.learn-item__list li{font-size:0.78rem;color:var(--txt2);display:flex;align-items:flex-start;gap:0.4rem;}
-.learn-item__list li::before{content:'◆';color:var(--gold);font-size:0.45rem;flex-shrink:0;margin-top:0.3rem;}
+.learn-item:hover{border-color:var(--amber);transform:translateY(-3px);box-shadow:0 10px 32px var(--shadow2);}
+
+/* Image slot — square 1:1 */
+.learn-item__img{
+  width:100%;
+  aspect-ratio:1/1;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--bg2),var(--bg3));
+  flex-shrink:0;
+}
+.learn-item__img img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform 0.5s ease;
+}
+.learn-item:hover .learn-item__img img{transform:scale(1.05);}
+.learn-item__img-ph{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;opacity:0.25;pointer-events:none;
+}
+
+/* Card body */
+.learn-item__body{
+  padding:1.1rem 1.2rem 1.3rem;
+  display:flex;flex-direction:column;gap:0.45rem;flex:1;
+}
+.learn-item__head{
+  display:flex;align-items:center;gap:0.5rem;
+}
+.learn-item__icon{font-size:1.2rem;}
+.learn-item__title{font-family:'Fraunces',serif;font-size:0.97rem;font-weight:700;color:var(--choc);}
+.learn-item__list{list-style:none;display:flex;flex-direction:column;gap:0.3rem;margin-top:0.1rem;}
+.learn-item__list li{font-size:0.78rem;color:var(--txt2);display:flex;align-items:flex-start;gap:0.4rem;line-height:1.45;}
+.learn-item__list li::before{content:'◆';color:var(--gold);font-size:0.42rem;flex-shrink:0;margin-top:0.32rem;}
+
+/* Cards WITHOUT image slot */
+.learn-item--no-img .learn-item__body{padding:1.3rem 1.2rem 1.4rem;}
 
 /* ══════════════════════════════════════
    REASONS - NUMBERED CARDS
@@ -635,6 +747,19 @@ footer{
 /* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:2rem;}
+  .hero-image{
+    width:100%;max-width:320px;
+    margin:0 auto;
+    order:-1;
+    aspect-ratio:9/10;
+  }
+  .hero-text{align-items:center;text-align:center;}
+  .hero__sub{text-align:center;}
+  .btn-caption{text-align:center!important;}
+  .vagas-box{max-width:420px!important;margin-left:auto!important;margin-right:auto!important;}
+}
 @media(max-width:768px){
   .sticky-cta{display:flex;}
   body{padding-bottom:80px;}
@@ -658,7 +783,7 @@ footer{
   .cake-carousels{grid-template-columns:1fr;}
   .learn-grid{grid-template-columns:1fr;}
   .steps-grid{grid-template-columns:1fr;}
-  .hero__title{font-size:2rem;}
+  .ht-big{font-size:2.5rem!important;}
   .carousel-btn{width:32px;height:32px;font-size:1rem;}
 }
 </style>
@@ -700,29 +825,49 @@ footer{
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero__badge">Masterclass Exclusiva · Pasteles de Feria</div>
-  <h1 class="hero__title reveal">
-    Los pasteles que <em>hacen fila</em> —<br/>aprende a hacerlos<br/>y véndelos desde ya
-  </h1>
-  <p class="hero__sub reveal reveal-delay-1">
-    Recetas exclusivas paso a paso que generan ganancias reales desde el primer lote —
-    aunque nunca hayas horneado antes en tu vida.
-  </p>
+  <div class="hero-inner">
 
-  <!-- VAGAS BOX (gamification) -->
-  <div class="vagas-box reveal reveal-delay-2">
-    <div class="vagas-top">
-      <span class="vagas-label">⚡ Cupos del Lote 1</span>
-      <span class="vagas-count" id="vagas-txt">Cargando...</span>
+    <!-- TEXT COLUMN -->
+    <div class="hero-text">
+      <div class="hero__badge reveal">Masterclass Exclusiva · Plataforma Hotmart</div>
+
+      <h1 class="hero__title reveal reveal-delay-1">
+        <span class="ht-small">Aprende los</span>
+        <span class="ht-big">PASTELES DE</span>
+        <span class="ht-big ht-orange">FERIA</span>
+        <span class="ht-sub">más lucrativos de internet</span>
+        <span class="ht-exclaim">¡Incluso sin experiencia!</span>
+      </h1>
+
+      <p class="hero__sub reveal reveal-delay-2">
+        Masterclass en la práctica, con video clases y recetas exclusivas para ganar dinero con pasteles de feria — desde el primer fin de semana.
+      </p>
+
+      <!-- VAGAS BOX -->
+      <div class="vagas-box reveal reveal-delay-3" style="margin:0 0 1.8rem;max-width:100%;">
+        <div class="vagas-top">
+          <span class="vagas-label">⚡ Cupos del Lote 1</span>
+          <span class="vagas-count" id="vagas-txt">Cargando...</span>
+        </div>
+        <div class="vagas-bar"><div class="vagas-fill" id="vagas-fill"></div></div>
+        <div class="vagas-bottom"><span>0 cupos</span><span id="vagas-max">100 cupos</span></div>
+      </div>
+
+      <a href="https://pay.hotmart.com/P104907668U?checkoutMode=10" class="btn-hero reveal reveal-delay-4">
+        ¡Garantizar mi acceso ahora!
+      </a>
+      <p class="btn-caption reveal" style="text-align:left;">Pago 100% seguro · USD $27 · Acceso de por vida · 7 días de garantía</p>
     </div>
-    <div class="vagas-bar"><div class="vagas-fill" id="vagas-fill"></div></div>
-    <div class="vagas-bottom"><span>0 cupos</span><span id="vagas-max">100 cupos</span></div>
-  </div>
 
-  <a href="https://pay.hotmart.com/P104907668U?checkoutMode=10" class="btn-hero reveal reveal-delay-3">
-    ¡Garantizar mi acceso ahora!
-  </a>
-  <p class="btn-caption reveal reveal-delay-4">Pago 100% seguro · USD $27 · Acceso de por vida · 7 días de garantía</p>
+    <!-- IMAGE COLUMN -->
+    <div class="hero-image reveal reveal-delay-2">
+      <div class="hero-image__ph"><span>👩‍🍳</span>Agrega expert.jpg</div>
+      <img src="images/expert.jpg" alt="Instructora — Pasteles de Feria Masterclass"
+           onerror="this.style.display='none'"/>
+      <div class="hero-image__badge">👩‍🍳 Tu instructora</div>
+    </div>
+
+  </div>
 </section>
 
 <!-- TRUST STRIP -->
@@ -906,36 +1051,120 @@ footer{
     <p class="sec-label reveal">Contenido completo</p>
     <h2 class="sec-title reveal reveal-delay-1">Todo lo que aprendes <em>en detalle</em></h2>
     <div class="learn-grid">
+
+      <!-- 1. MASAS — con imagen -->
       <div class="learn-item reveal reveal-delay-1">
-        <div class="learn-item__icon">🥄</div>
-        <p class="learn-item__title">2 Masas Base</p>
-        <ul class="learn-item__list"><li>Masa de vainilla clásica</li><li>Masa de chocolate húmedo</li></ul>
+        <div class="learn-item__img">
+          <div class="learn-item__img-ph">🥄</div>
+          <img src="images/learn-massa.jpg" alt="Masas base" onerror="this.style.display='none'"/>
+        </div>
+        <div class="learn-item__body">
+          <div class="learn-item__head">
+            <span class="learn-item__icon">🥄</span>
+            <p class="learn-item__title">2 Masas Base</p>
+          </div>
+          <ul class="learn-item__list">
+            <li>Masa de vainilla clásica</li>
+            <li>Masa de chocolate húmedo</li>
+          </ul>
+        </div>
       </div>
+
+      <!-- 2. RELLENOS — con imagen -->
       <div class="learn-item reveal reveal-delay-2">
-        <div class="learn-item__icon">🍯</div>
-        <p class="learn-item__title">8 Rellenos Exclusivos</p>
-        <ul class="learn-item__list"><li>Crema de nido</li><li>Crema de chocolate</li><li>Dulce de leche</li><li>Cocada, maracuyá, piña, ciruela...</li></ul>
+        <div class="learn-item__img">
+          <div class="learn-item__img-ph">🍯</div>
+          <img src="images/learn-recheios.jpg" alt="Rellenos exclusivos" onerror="this.style.display='none'"/>
+        </div>
+        <div class="learn-item__body">
+          <div class="learn-item__head">
+            <span class="learn-item__icon">🍯</span>
+            <p class="learn-item__title">8 Rellenos Exclusivos</p>
+          </div>
+          <ul class="learn-item__list">
+            <li>Crema de nido</li>
+            <li>Crema de chocolate</li>
+            <li>Dulce de leche</li>
+            <li>Cocada, maracuyá, piña, ciruela...</li>
+          </ul>
+        </div>
       </div>
+
+      <!-- 3. COBERTURAS — con imagen -->
       <div class="learn-item reveal reveal-delay-3">
-        <div class="learn-item__icon">🎂</div>
-        <p class="learn-item__title">3 Coberturas + 2 Caldos</p>
-        <ul class="learn-item__list"><li>Chantininho profesional</li><li>Crema de chocolate</li><li>Ganache para decoración</li><li>Caldos de nido y brigadeiro</li></ul>
+        <div class="learn-item__img">
+          <div class="learn-item__img-ph">🎂</div>
+          <img src="images/learn-cobertura.jpg" alt="Coberturas" onerror="this.style.display='none'"/>
+        </div>
+        <div class="learn-item__body">
+          <div class="learn-item__head">
+            <span class="learn-item__icon">🎂</span>
+            <p class="learn-item__title">3 Coberturas</p>
+          </div>
+          <ul class="learn-item__list">
+            <li>Chantininho profesional</li>
+            <li>Crema de chocolate</li>
+            <li>Ganache para decoración</li>
+          </ul>
+        </div>
       </div>
+
+      <!-- 4. CALDOS — con imagen -->
       <div class="learn-item reveal reveal-delay-1">
-        <div class="learn-item__icon">✨</div>
-        <p class="learn-item__title">Técnicas de Presentación</p>
-        <ul class="learn-item__list"><li>Montaje profesional</li><li>Técnicas de acabado</li><li>Embalaje para feria y regalo</li></ul>
+        <div class="learn-item__img">
+          <div class="learn-item__img-ph">🫗</div>
+          <img src="images/learn-caldos.jpg" alt="Caldos" onerror="this.style.display='none'"/>
+        </div>
+        <div class="learn-item__body">
+          <div class="learn-item__head">
+            <span class="learn-item__icon">🫗</span>
+            <p class="learn-item__title">2 Caldos</p>
+          </div>
+          <ul class="learn-item__list">
+            <li>Caldo de nido</li>
+            <li>Caldo de brigadeiro</li>
+          </ul>
+        </div>
       </div>
+
+      <!-- 5. TÉCNICAS — con imagen -->
       <div class="learn-item reveal reveal-delay-2">
-        <div class="learn-item__icon">📄</div>
-        <p class="learn-item__title">E-book Imprimible</p>
-        <ul class="learn-item__list"><li>PDF de alta calidad</li><li>Medidas exactas</li><li>Tuyo de por vida — sin internet</li></ul>
+        <div class="learn-item__img">
+          <div class="learn-item__img-ph">✨</div>
+          <img src="images/learn-tecnicas.jpg" alt="Técnicas de presentación" onerror="this.style.display='none'"/>
+        </div>
+        <div class="learn-item__body">
+          <div class="learn-item__head">
+            <span class="learn-item__icon">✨</span>
+            <p class="learn-item__title">Técnicas de Presentación</p>
+          </div>
+          <ul class="learn-item__list">
+            <li>Montaje profesional</li>
+            <li>Técnicas de acabado</li>
+            <li>Embalaje para feria y regalo</li>
+          </ul>
+        </div>
       </div>
+
+      <!-- 6. CERTIFICADO — con imagen -->
       <div class="learn-item reveal reveal-delay-3">
-        <div class="learn-item__icon">🎓</div>
-        <p class="learn-item__title">Certificado Oficial</p>
-        <ul class="learn-item__list"><li>Descargable al finalizar</li><li>Certifica tu formación</li><li>Desde la plataforma Hotmart</li></ul>
+        <div class="learn-item__img">
+          <div class="learn-item__img-ph">🎓</div>
+          <img src="images/learn-certificado.jpg" alt="Certificado oficial" onerror="this.style.display='none'"/>
+        </div>
+        <div class="learn-item__body">
+          <div class="learn-item__head">
+            <span class="learn-item__icon">🎓</span>
+            <p class="learn-item__title">Certificado Oficial</p>
+          </div>
+          <ul class="learn-item__list">
+            <li>Descargable al finalizar</li>
+            <li>Certifica tu formación</li>
+            <li>Desde la plataforma Hotmart</li>
+          </ul>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
