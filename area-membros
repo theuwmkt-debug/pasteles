@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Área de Miembros — Pasteles de Feria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#FDF7F0;--bg2:#F5EDE0;--bg3:#EDE0CC;
+  --choc:#1E0902;--choc2:#3A1408;
+  --amber:#C97220;--amber2:#E89030;--gold:#F0B848;
+  --red:#C0391A;
+  --white:#FFFFFF;--txt:#1E0902;--txt2:#5C3520;--txt3:#9A7058;
+  --border:#DDD0BC;--shadow:rgba(30,9,2,0.10);--shadow2:rgba(30,9,2,0.22);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  background:var(--bg);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--txt);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  min-height:100vh;
+  position:relative;overflow:hidden;
+}
+
+/* ── BACKGROUND ── */
+.bg-dots{
+  position:fixed;inset:0;z-index:0;
+  background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);
+  background-size:32px 32px;opacity:0.45;pointer-events:none;
+}
+.bg-glow{
+  position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(90px);
+}
+.bg-glow--1{width:560px;height:560px;top:-140px;right:-140px;
+  background:radial-gradient(circle,rgba(201,114,32,0.13),transparent 70%);}
+.bg-glow--2{width:480px;height:480px;bottom:-120px;left:-120px;
+  background:radial-gradient(circle,rgba(240,184,72,0.09),transparent 70%);}
+
+/* ── CARD ── */
+.card{
+  position:relative;z-index:1;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:24px;
+  padding:3rem 3.2rem;
+  width:calc(100% - 2rem);
+  max-width:460px;
+  box-shadow:0 24px 80px var(--shadow2);
+  animation:fadeUp 0.6s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── LOGO ── */
+.logo{text-align:center;margin-bottom:2rem;}
+.logo__sup{
+  font-size:0.6rem;font-weight:800;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:0.3rem;
+}
+.logo__name{
+  font-family:'Fraunces',serif;font-size:1.75rem;font-weight:900;
+  color:var(--choc);line-height:1;
+}
+.logo__name span{color:var(--amber);}
+.logo__bar{
+  width:36px;height:2px;margin:0.5rem auto 0;
+  background:linear-gradient(90deg,var(--amber),var(--gold));border-radius:2px;
+}
+
+/* ── SECTION TITLES ── */
+.sec-title{
+  font-family:'Fraunces',serif;font-size:1.35rem;font-weight:900;
+  color:var(--choc);text-align:center;margin-bottom:0.4rem;
+}
+.sec-sub{
+  font-size:0.85rem;color:var(--txt3);text-align:center;margin-bottom:1.8rem;line-height:1.6;
+}
+
+/* ── FORM ── */
+.field{margin-bottom:1.2rem;}
+.field label{
+  display:block;font-size:0.75rem;font-weight:700;
+  color:var(--txt2);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.45rem;
+}
+.field input{
+  width:100%;padding:0.85rem 1rem;
+  border:1.5px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--txt);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+}
+.field input:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,114,32,0.12);}
+.field input::placeholder{color:var(--txt3);}
+
+/* ── ERROR ── */
+.error-msg{
+  display:none;
+  background:rgba(192,57,26,0.08);border:1px solid rgba(192,57,26,0.2);
+  color:var(--red);font-size:0.8rem;font-weight:600;
+  padding:0.65rem 1rem;border-radius:8px;margin-bottom:1rem;
+  text-align:center;
+}
+.error-msg.show{display:block;}
+
+/* ── BUTTON ── */
+.btn{
+  width:100%;padding:1rem;border:none;border-radius:8px;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;
+  font-weight:800;letter-spacing:0.07em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--amber2),var(--amber));
+  color:#fff;box-shadow:0 6px 20px rgba(201,114,32,0.4);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,114,32,0.45);}
+.btn:active{transform:translateY(0);}
+
+/* ── SHAKE ANIMATION (wrong password) ── */
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-8px);}
+  40%{transform:translateX(8px);}
+  60%{transform:translateX(-5px);}
+  80%{transform:translateX(5px);}
+}
+.shake{animation:shake 0.45s ease;}
+
+/* ══════════════════════════════════
+   MAINTENANCE SCREEN
+══════════════════════════════════ */
+.maint-icon{
+  width:78px;height:78px;margin:0 auto 1.8rem;
+  background:linear-gradient(135deg,var(--bg2),var(--bg3));
+  border:2px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;position:relative;
+}
+.maint-icon::before{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:2.5px solid transparent;
+  border-top-color:var(--amber);border-right-color:var(--gold);
+  animation:spin 1.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.time-badge{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:linear-gradient(135deg,var(--choc2),var(--choc));
+  color:var(--gold);font-family:'Fraunces',serif;
+  font-size:1.4rem;font-weight:700;
+  padding:0.7rem 2rem;border-radius:100px;
+  margin:0.5rem 0 1.8rem;
+  box-shadow:0 6px 20px rgba(30,9,2,0.25);
+}
+
+.progress-wrap{margin-bottom:0;}
+.progress-label{
+  display:flex;justify-content:space-between;
+  font-size:0.7rem;font-weight:700;color:var(--txt3);
+  letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.5rem;
+}
+.progress-track{height:6px;background:var(--bg3);border-radius:100px;overflow:hidden;}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--amber),var(--gold));
+  border-radius:100px;
+  animation:fill 2s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+}
+@keyframes fill{to{width:72%;}}
+
+/* ── HIDDEN / VISIBLE ── */
+.screen{display:none;}
+.screen.active{display:block;}
+
+@media(max-width:480px){
+  .card{padding:2rem 1.5rem;}
+  .time-badge{font-size:1.15rem;padding:0.6rem 1.4rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-dots"></div>
+<div class="bg-glow bg-glow--1"></div>
+<div class="bg-glow bg-glow--2"></div>
+
+<div class="card" id="card">
+
+  <!-- ── LOGIN SCREEN ── -->
+  <div class="screen active" id="screen-login">
+
+    <div class="logo">
+      <span class="logo__sup">Área de Miembros</span>
+      <div class="logo__name">Pasteles <span>de Feria</span></div>
+      <div class="logo__bar"></div>
+    </div>
+
+    <h2 class="sec-title">Bienvenida de vuelta 👋</h2>
+    <p class="sec-sub">Ingresa tu contraseña para acceder al contenido exclusivo.</p>
+
+    <div class="error-msg" id="error-msg">
+      ❌ Contraseña incorrecta. Inténtalo de nuevo.
+    </div>
+
+    <form id="login-form" onsubmit="checkPassword(event)">
+      <div class="field">
+        <label for="password">Contraseña de acceso</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="••••••••••••"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn">Entrar al área de miembros →</button>
+    </form>
+
+  </div>
+
+  <!-- ── MAINTENANCE SCREEN ── -->
+  <div class="screen" id="screen-maint">
+
+    <div class="logo">
+      <span class="logo__sup">Área de Miembros</span>
+      <div class="logo__name">Pasteles <span>de Feria</span></div>
+      <div class="logo__bar"></div>
+    </div>
+
+    <div class="maint-icon">🔧</div>
+
+    <h2 class="sec-title">Estamos preparando<br/>algo delicioso para ti</h2>
+    <p class="sec-sub">
+      El sitio está en mantenimiento.<br/>
+      Volveremos completamente renovados a las
+    </p>
+
+    <div style="text-align:center;">
+      <div class="time-badge">🕒 03:00 a.m.</div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Progreso</span>
+        <span id="pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+var CORRECT = 'pasteles2026';
+
+function checkPassword(e) {
+  e.preventDefault();
+  var input = document.getElementById('password').value;
+  var errorMsg = document.getElementById('error-msg');
+  var card = document.getElementById('card');
+
+  if (input === CORRECT) {
+    // Switch screens
+    document.getElementById('screen-login').classList.remove('active');
+    document.getElementById('screen-maint').classList.add('active');
+
+    // Animate progress counter
+    var el = document.getElementById('pct');
+    var end = 72, dur = 2000;
+    var s = Date.now();
+    var t = setInterval(function(){
+      var p = Math.min((Date.now()-s)/dur, 1);
+      var ease = 1 - Math.pow(1-p, 4);
+      el.textContent = Math.round(ease * end) + '%';
+      if (p >= 1) clearInterval(t);
+    }, 16);
+
+  } else {
+    // Show error + shake
+    errorMsg.classList.add('show');
+    card.classList.remove('shake');
+    void card.offsetWidth; // reflow
+    card.classList.add('shake');
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+  }
+}
+</script>
+</body>
+</html>
